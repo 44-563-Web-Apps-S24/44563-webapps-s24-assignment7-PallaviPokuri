@@ -67,7 +67,32 @@
             <div class="col locations"><img src="building.jpg" width="100px" height="100px" id="image35" onclick="check(34)"></div>
         </div>
     </div>
+    <script>
+    function check(position) {
+        if (gameOver) {
+            return;
+        }
     
+        var id = ids[position];
+        var imageElement = document.getElementById(id);
+        
+        if (position === monsterLocation) {
+            imageElement.src = "monster.jpg";
+            gameOver = true;
+            score -= 5;
+        } else if (fancyCoinLocations.includes(position)) {
+            imageElement.src = "fancier coin.jpg";
+            score += 3;
+        } else {
+            imageElement.src = "coin.jpg";
+            score += 1;
+        }
+    
+        locations++;
+        document.getElementById("locations").innerText = locations;
+    
+        lastCheck = position;
+    }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
