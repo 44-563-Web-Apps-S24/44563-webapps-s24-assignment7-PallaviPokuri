@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items </title>
+</head>
+
+<body>
+    <h1>Pallavi Pokuri builds list with divs</h1>
+    <input type="text" id="itemInput">
+    <button onclick="addItemEnd()">Add end</button>
+    <button onclick="addFront()">Add front</button>
+    <button onclick="remove()">Remove</button>
+    <div class="flex-container" id="flex-container">
+        <div class="divlist">Item 1</div>
+        <div class="divlist">Item 2</div>
+        <div class="divlist">Item 3</div>
+    </div>
+
+    <script>
+        function addItemEnd() {
+            var inputValue = document.getElementById("itemInput").value;
+            var newDiv = document.createElement("div");
+            newDiv.innerHTML = inputValue;
+            newDiv.className = "divlist";
+            document.getElementById("flex-container").appendChild(newDiv);
+        }
+
+        function addFront() {
+            var inputValue = document.getElementById("itemInput").value;
+            var newDiv = document.createElement("div");
+            newDiv.innerHTML = inputValue;
+            newDiv.className = "divlist";
+            var container = document.getElementById("flex-container");
+            container.insertBefore(newDiv, container.firstChild);
+        }
+
+        function remove() {
+            var divListItems = document.getElementsByClassName("divlist");
+            var length = divListItems.length;
+            if (length > 0) {
+                var indexToRemove = Math.floor(length / 2);
+                document.getElementById("flex-container").removeChild(divListItems[indexToRemove]);
+            }
+        }
+    </script>
+</body>
+
+</html>
