@@ -15,7 +15,8 @@
     <div id="locations" style="background-color:yellow; color:blueviolet">Number of locations checked is zero.”</div><br>
     <div id="score" style="background-color:yellowgreen; color:blue">Score is zero.</div><br>
     <div style="background-color:skyblue; color:red">Click for help.</div><br>
-    <div id="help" style="background-color:bisque; color:brown">Help report</div><br>
+    <div id="help" style="background-color:bisque; color:brown"><button onclick="help()">Help report</button></div><br>
+    <p><button class = "btn btn-primary" onclick = "newGame()">New Game</button></p>
 
     <div class="container">
         <div class="row">
@@ -72,93 +73,79 @@
 </body>
 <script>
     const ids = ["image0", "image1", "image2", "image3", "image4", "image5", "image6", "image7", "image8", "image9", "image10", "image11", "image12", "image13", "image14", "image15", "image16", "image17", "image18", "image19", "image20", "image21", "image22", "image23", "image24", "image25", "image26", "image27", "image28", "image29", "image30", "image31", "image32", "image33", "image34"];
-    var score = 0;
+        var score = 0;
         var locations = 0;
         var lastLocation = 0;
         var fancyCoinLocations = [2, 5, 14, 19, 23, 33];
         var monsterLocation = 20;
         var gameOver = false;
-
-        function check(position)
-        {
+        function check(position) {
             let id = ids[position];
-            
-            if(gameOver==true)
-            {
+            if (gameOver == true) {
                 return;
             }
             var img = document.getElementById(id);
-            if(fancyCoinLocations.includes(position))
-            {
-                img.src="fancier coin.jpg";
-                score+=3;
+            if (fancyCoinLocations.includes(position)) {
+                img.src = "fancier coin.jpg";
+                score += 3;
                 locations++;
-                document.getElementById("locations").innerText = `locations:`+locations;
-                document.getElementById("score").innerText = score;
-    
+                document.getElementById("locations").innerText = "Number of locations checked is "+locations;
+                document.getElementById("score").innerText = "Score is  " + score;
+
             }
-            else if (position==monsterLocation) {
-                img.src = "monster.png";
-                gameOver = true; 
+            else if (position == monsterLocation) {
+                img.src = "monster.jpg";
+                gameOver = true;
                 score -= 5;
                 locations++;
-                document.getElementById("locations").innerText = `locations:`+ locations;
-                document.getElementById("score").innerText = score;
-                }
-            
-            else{
-                img.src="coin.jpg";
-                score+=1;
+                document.getElementById("locations").innerText = "Number of locations checked is "+ locations;
+                document.getElementById("score").innerText = "Score is  " + score;
+            }
+
+            else {
+                img.src = "coin.jpg";
+                score += 1;
                 locations++;
-                document.getElementById("locations").innerText =`locations:`+ locations; 
-                document.getElementById("score").innerText = score;
+                document.getElementById("locations").innerText = "Number of locations checked is "+ locations;
+                document.getElementById("score").innerText = "Score is  " + score;
             }
-    
+
             lastLocation = position;
-                
+
+        }
+        function help() {
+            var row = Math.floor(lastLocation / 5);
+            var col = lastLocation % 5;
+            var result = "All clear";
+
+            if (fancyCoinLocations.includes(lastLocation)) {
+                result = "So close";
+            } else {
+                var kinshipLocations = [lastLocation - 1, lastLocation + 1, lastLocation - 5, lastLocation + 5];
+                for (var i = 0; i < kinshipLocations.length; i++) {
+                    if (fancyCoinLocations.includes(kinshipLocations[i])) {
+                        result = "So close";
+                        break;
+                    }
+                }
             }
-            function help()
-            {
-                
-                var col= lastLocation%5;
-                var row= Math.floor(lastLocation/5);
-                
-                const kinshipLocations = [lastLocation-1,lastLocation+1,lastLocation-5,lastLocation+5];
-                for(const kinship of kinshipLocations)
-                {
-                    const adjustedLoc = (kinship+35)%35;
-                    if(fancyCoinLocations.includes(adjustedLoc))
-                {
-                    document.getElementById("help").innerHTML="So close";
-                    return;
-                }
-    
-                }
-                
-    
-                var monsterRow = Math.floor(monsterLocation / 5);
-                var monsterCol = monsterLocation % 5;
-                if (row - monsterRow< 1 && col - monsterCol < 1) {
-                  document.getElementById("help").innerHTML="Grr";
-                }
-                else
-                {
-                    document.getElementById("help").innerHTML="All clear";
-                }
-                document.getElementById("help").onclick = help;
-              
-    
-    
+
+            if (Math.abs(row - Math.floor(monsterLocation / 5)) <= 1 && Math.abs(col - (monsterLocation % 5)) <= 1) {
+                result = "Grrr";
             }
-            function newGame() {
+
+            document.getElementById("help").innerText = result;
+            
+        }
+        function newGame() {
             monsterLocation = Math.floor(Math.random() * 35);
             fancyCoinLocations = Math.floor(Math.random() * 35);
             console.log(monsterLocation);
             console.log(fancyCoinLocations);
             score=null;
             locations=null;
-            document.getElementById("locations").innerText =`locations: 0`; 
-            document.getElementById("score").innerText = `score: 0`;
+            document.getElementById("locations").innerText ='Number of locations checked is: 0'; 
+            document.getElementById("score").innerText = 'score is: 0';
         }
 
   </script>
