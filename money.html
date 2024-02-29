@@ -109,15 +109,12 @@
                 document.getElementById("locations").innerText = "Number of locations checked is "+ locations;
                 document.getElementById("score").innerText = "Score is  " + score;
             }
-
             lastLocation = position;
-
         }
         function help() {
             var row = Math.floor(lastLocation / 5);
             var col = lastLocation % 5;
             var result = "All clear";
-
             if (fancyCoinLocations.includes(lastLocation)) {
                 result = "So close";
             } else {
@@ -129,25 +126,21 @@
                     }
                 }
             }
-
             if (Math.abs(row - Math.floor(monsterLocation / 5)) <= 1 && Math.abs(col - (monsterLocation % 5)) <= 1) {
                 result = "Grrr";
             }
-
             document.getElementById("help").innerText = result;
-            
         }
         function newGame() {
             monsterLocation = Math.floor(Math.random() * 35);
             fancyCoinLocations = Math.floor(Math.random() * 35);
             console.log(monsterLocation);
             console.log(fancyCoinLocations);
-            score=null;
-            locations=null;
-            document.getElementById("locations").innerText ='Number of locations checked is: 0'; 
-            document.getElementById("score").innerText = 'score is: 0';
-        }
-
+            score = 0;
+            locations = 0;
+            document.getElementById("locations").innerText = 'locations: 0';
+            document.getElementById("score").innerText = 'score: 0';
+}
   </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 
   integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
